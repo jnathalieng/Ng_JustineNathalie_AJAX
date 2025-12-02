@@ -12,6 +12,11 @@
     <!-- link to greensock main library and scroll plugin -->
   </head>
   <body>
+
+    <div class="col-span-full">
+      <img id="earbuds-static" src="images/earbuds.jpg" alt="Novo Earbuds static view">
+    </div>
+
     <div class="grid-con">
       <div class="col-span-full">
         <model-viewer id="model" src="model/earbuds.gltf" camera-controls poster="images/poster.webp" shadow-intensity="1" environment-image="images/aircraft_workshop_01_1k.hdr" exposure="1.7" camera-orbit="52.34deg 88.29deg 874.8m" field-of-view="30deg">
@@ -37,20 +42,33 @@
           </button>
         </model-viewer>
       </div>
+      
       <div class="col-span-full">
         <h2>Materials</h2>
+        
+        <!-- Loading Spinner -->
+         <svg version="1.1" id="loader" class="hidden" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 100 100" enable-background="new 0 0 0 0" xml:space="preserve">
+          <path fill="#333" d="M73,50c0-12.7-10.3-23-23-23S27,37.3,27,50 M30.9,50c0-10.5,8.5-19.1,19.1-19.1S69.1,39.5,69.1,50">
+            <animatetransform attributeName="transform" attributeType="XML" type="rotate" dur="1s" from="0 50 50" to="360 50 50" repeatCount="indefinite" /></path>
+        </svg>
+        
         <ul id="material-list">
           <!-- Template will be copied here -->
-        </ul>
-
-        <template id="material-template">
-          <li>
-            <h3 class="material-heading"></h3>
-            <p class="material-description"></p>
-          </li>
-        </template>
-      </div>
-    </div>  
+          </ul>
+          
+          <template id="material-template">
+            <li class="material-item">
+              <img class="material-image" src="#" alt="material image">
+              
+              <div class="material-text">
+                <h3 class="material-heading"></h3>
+                <p class="material-description"></p>
+              </div>
+            </li>
+          </template>
+        </div>
+      </div>  
+    
     <!-- Loads <model-viewer> for browsers: -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/gsap.min.js"></script>
     <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.0.1/model-viewer.min.js"></script>
