@@ -1,50 +1,47 @@
-## Earbuds using AJAX
-A fully dynamic earbuds page that uses the Fetch API to load all hotspot content from JSON. Includes templates, SASS styling, and responsive layouts for mobile, tablet, and desktop.
+## Novo Earbuds – AJAX Assignment
+
+This project is a dynamic earbuds page that loads all hotspot and material content using the Fetch API. Instead of hard-coding everything, the info comes from a JSON API and gets displayed through an HTML template. I also used SASS and made sure the layout works for mobile, tablet, and desktop.
 
 ## About
-This is an assignment that focuses on using JavaScript and AJAX to pull data from an API and update the view. Instead of hard-coding the content, everything is loaded on page load and displayed through a template. I also made sure the page works well on mobile, tablet, and desktop.
+
+This project focuses on using JavaScript and AJAX to update the page automatically when the data loads. The hotspots, materials, and images are all created with templates based on the JSON response. I also added a loading spinner and error message if the API doesn’t load properly.
 
 ## Skills Used
-Fetch API
-AJAX request handling
-Using the HTML <template> element
-DOM updates based on user interaction
-Loading and error states
+Fetch API / AJAX
+HTML 
+Basic DOM updates
+Loading + error handling
 Responsive design
-Organizing JS functions in a simple workflow
-Languages & Tools
-HTML5
-SASS / CSS3
-JavaScript (ES6+)
-Model Viewer (from class build)
+SASS workflow
+JavaScript 
 Git / GitHub
 
 ## Features
-Dynamic hotspot content loaded from JSON
-Loading icon while data is being fetched
-Works on mobile, tablet, and desktop
-Template-based layout for cleaner HTML
-Error message handling if the API fails
-Simple and organized JavaScript structure
+Hotspot info loads from the API
+Material list loads from the API
+Custom loading icon
+Error message if something fails
+Mobile shows static image
+Tablet + Desktop show the 3D model
+Clean and simple JS structure 
 
-## How it works
-Page loads, Fetch request starts
-Shows loading icon
-Once the data returns, the app saves it
-Template fills in the title, text, and image
-Hotspots update the content when clicked
+## How It Works
+Page loads
+Fetch request starts
+Loader shows
+JSON data comes back
+Template clones fill in the titles, text, and images
 If something goes wrong, an error message appears
 
 ## Installation
-To run this project:
-Clone or download the repo
-Open the folder
-Run index.html in your browser or use Live Server
+Clone or download the repository
+Open the project folder
+Run index.html directly in your browser or with Live Server
 
 ## Contact
 Created by: Justine Nathalie Ng
 Program: Interactive Media Design – Fanshawe College
-GitHub: https://github.com/jnathalieng/Ng_JustineNathalie_AJAX.git
+GitHub Repo: https://github.com/jnathalieng/Ng_JustineNathalie_AJAX.git
 Email: ng_jnathalie.ca@gmail.com
 
 ## License
