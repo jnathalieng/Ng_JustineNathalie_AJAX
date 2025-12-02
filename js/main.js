@@ -1,93 +1,98 @@
 (() => {
 
-  //variables
+  // variables
   const hotspots = document.querySelectorAll(".Hotspot");
   const materialTemplate = document.querySelector("#material-template");
   const materialList = document.querySelector("#material-list");
+  const loader = document.querySelector("#loader");
+  const materialImages = {
+    "Precision-Crafted Polymers": "plastic.png",
+    "Luxurious Silicone Harmony": "silicone.png",
+    "Rubberized Cables": "cable.png",
+    "Enhanced Comfort Sensors": "sensor.png",
+    "Artistic Mesh Guard": "mesh.png"
+  };
 
-  //This information needs to be removed then pulled with an AJAX Call using the Fetch API
-  //this is the api url https://swiftpixel.com/earbud/api/materials"
-
-  const materialListData = [
-    {
-      heading: "Precision-Crafted Polymers",
-      description: "Our earbuds are meticulously molded from high-quality plastics, ensuring a blend of elegance, comfort, and resilience that's second to none."
-    },
-    {
-      heading: "Luxurious Silicone Harmony",
-      description: "Our uniquely engineered ear tips are cocooned in plush silicone, delivering an opulent embrace for your ears, ensuring an unrivaled fit and exquisite audio experience."
-    },
-    {
-      heading: "Rubberized Cables",
-      description: "Experience the unparalleled freedom of movement with our flexible rubber cables that promise durability without compromise."
-    },
-    {
-      heading: "Enhanced Comfort Sensors",
-      description: "A touch of magic in the form of built-in microphones and sensors empowers your earbuds to obey your every command, making your audio journey seamless and enchanting."
-    },
-    {
-      heading: "Artistic Mesh Guard",
-      description: "Shielded by artful mesh screens, our speakers remain untarnished, keeping your listening experience pristine."
-    }
-  ];
-
-  //functions
   function loadInfoBoxes() {
-
     fetch("https://swiftpixel.com/earbud/api/infoboxes")
-    .then(response => response.json())
-    .then(infoBoxes => {
-      console.log(infoBoxes);
+      .then(response => response.json())
+      .then(infoBoxes => {
+        console.log(infoBoxes);
 
-      infoBoxes.forEach((infoBox, index) => {
-      let selected = document.querySelector(`#hotspot-${index + 1}`);
+        infoBoxes.forEach((infoBox, index) => {
+          let selected = document.querySelector(`#hotspot-${index + 1}`);
 
-      const titleElement = document.createElement('h2');
-      titleElement.textContent = infoBox.heading;
+          const titleElement = document.createElement("h2");
+          titleElement.textContent = infoBox.heading;
 
-      const textElement = document.createElement('p');
-      textElement.textContent = infoBox.description;
+          const textElement = document.createElement("p");
+          textElement.textContent = infoBox.description;
 
-      selected.appendChild(titleElement);
-      selected.appendChild(textElement);
-    });
-    })
-    .catch(error => {
-      //make a meaningful error message and post to DOM
-      console.log(error);
-    });
-
-   
+          selected.appendChild(titleElement);
+          selected.appendChild(textElement);
+        });
+      })
+      .catch(error => {
+        console.log(error);
+      });
   }
-  loadInfoBoxes();
 
+  loadInfoBoxes();
   function loadMaterialInfo() {
 
-    //Add loader in HTML, write code to show it here
+    // shows the loader
+    loader.classList.remove("hidden");
 
-    //make AJAX Call here
+    // clears any previous content
+    materialList.innerHTML = "";
 
-     //this is the api url https://swiftpixel.com/earbud/api/materials"
+    // this is the api url https://swiftpixel.com/earbud/api/materials
+    fetch("https://swiftpixel.com/earbud/api/materials")
+      .then(response => response.json())
+      .then(materials => {
+        console.log(materials);
 
+        materials.forEach(material => {
+          // clones the template li with img, h3 and p inside
+          const clone = materialTemplate.content.cloneNode(true);
 
-    materialListData.forEach(material => {
-      // clone the template li with h3 and p inside
-      const clone = materialTemplate.content.cloneNode(true);
-      // populate the cloned template
-      const materialHeading = clone.querySelector(".material-heading");
-      materialHeading.textContent = material.heading;
+          // sets the material image (bonus)
+          const materialImg = clone.querySelector(".material-image");
+          if (materialImg && materialImages[material.heading]) {
+            materialImg.src = `images/${materialImages[material.heading]}`;
+            materialImg.alt = material.heading;
+          }
 
-      const materialDescription = clone.querySelector(".material-description");
-      materialDescription.textContent = material.description;
+          // populates the clone template text
+          const materialHeading = clone.querySelector(".material-heading");
+          materialHeading.textContent = material.heading;
 
-      //Hide the loader
+          const materialDescription = clone.querySelector(".material-description");
+          materialDescription.textContent = material.description;
 
-      //Append the populated template to the list
-      materialList.appendChild(clone);
-    })
+          // appends the template to the list
+          materialList.appendChild(clone);
+        });
+
+        // hides the loader when done
+        loader.classList.add("hidden");
+      })
+      .catch(error => {
+        console.log(error);
+
+        // hides the loader if something went wrong
+        loader.classList.add("hidden");
+
+        // shows a user-friendly error message in the DOM
+        materialList.innerHTML = `
+          <li class="error-message">
+            Data failed to load. Please check your connection or try again later.
+          </li>
+        `;
+      });
   }
-  loadMaterialInfo();
 
+  loadMaterialInfo();
 
   function showInfo() {
     let selected = document.querySelector(`#${this.slot}`);
@@ -99,12 +104,10 @@
     gsap.to(selected, 1, { autoAlpha: 0 });
   }
 
-  //Event listeners
-
+  // Event listeners
   hotspots.forEach(function (hotspot) {
     hotspot.addEventListener("mouseenter", showInfo);
     hotspot.addEventListener("mouseleave", hideInfo);
   });
 
 })();
-
